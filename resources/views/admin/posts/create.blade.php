@@ -3,18 +3,16 @@
 @section('content')
 
 
-    @php
-        
-        for($i=0; $i < count($categories); $i++) {
+{{--     @php
 
-            var_dump("i = $i");
-            var_dump($categories[$i]->name);
-            var_dump($categories[$i]->id);
-            var_dump("-------------------");
+    for ($i = 0; $i < count($categories); $i++) {
+        var_dump("i = $i");
+        var_dump($categories[$i]->name);
+        var_dump($categories[$i]->id);
+        var_dump('-------------------');
+    }
 
-        }
-
-    @endphp
+    @endphp --}}
 
 
     <div class="container">
@@ -29,7 +27,7 @@
         @endif
 
 
-        <form action="{{route('admin.posts.store')}}" method="post"> {{-- {{route('posts.store')}} --}}
+        <form action="{{ route('admin.posts.store') }}" method="post"> {{-- {{route('posts.store')}} --}}
 
             <h2 class="text-center">Create a new Post</h2>
 
@@ -51,17 +49,34 @@
                 {{-- <textarea rows="3" type="text" name="category" id="category"
                     class="form-control @error('category') is-invalid @enderror" value="{{ old('category') }}">
                 </textarea> --}}
-                  <select class="form-control @error('category_id') is-invalid @enderror" name="category_id" id="category_id">
+                <select class="form-control @error('category_id') is-invalid @enderror" name="category_id" id="category_id">
                     <option selected disabled>Choose a category</option>
 
                     @foreach ($categories as $category)
-                        
-                    <option value="{{$category->id}}">{{$category->name}}</option>
-
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
-                    
-                  </select>
-               
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="tag_id">Tags</label>
+
+                <select class="form-control @error('category_id') is-invalid @enderror" multiple
+                    data-mdb-placeholder="Select here tags" multiple name="tag_id[]" id="tag_id">
+
+                    @forelse ($tags as $tag)
+
+                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+
+                    @empty
+
+                        <option value="">No tag</option>
+
+                    @endforelse
+
+                </select>
             </div>
 
             <div class="mb-3">
@@ -80,10 +95,10 @@
 
             <div class="mb-5">
                 <label for="date">Date of the Post</label>
-                <input type="date" name="date" id="date"
-                    class="form-control @error('date') is-invalid @enderror" value="{{ old('date') }}">
+                <input type="date" name="date" id="date" class="form-control @error('date') is-invalid @enderror"
+                    value="{{ old('date') }}">
 
-                    @error('date')
+                @error('date')
                     <div class="alert alert-danger mt-2">{{ $message }}</div>
                 @enderror
             </div>

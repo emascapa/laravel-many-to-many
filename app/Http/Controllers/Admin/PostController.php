@@ -43,7 +43,9 @@ class PostController extends Controller
         //
         $categories = Category::all();
 
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all();
+
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -62,17 +64,22 @@ class PostController extends Controller
         
         //$data = $request->all();
         
-        //dd($data);
+        //dd($request->tag_id);
 
         $data['slug'] = Str::slug($request->title, '-');
 
+
+        $new_post = Post::create($data);
+
+        $new_post->tags()->attach($request->tag_id);
         
 
-        Post::create($data);
+        return redirect()->route('admin.posts.index'); 
+   /*      Post::create($data);
 
 
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index'); */
     }
 
     /**
