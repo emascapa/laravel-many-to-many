@@ -16,5 +16,11 @@ class Post extends Model
         # code...
         return $this->belongsTo(Category::class);
     }
-    
+
+    //relazione many to many con Tag
+    public function tags()
+    {
+        # code...
+        return $this->belongsToMany(Tag::class);
+    }
 }
