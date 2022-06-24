@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -15,8 +17,13 @@ class TagController extends Controller
     public function index()
     {
         //
-    }
+        $tags = Tag::all();
 
+        //dd($tags);
+
+        return view('admin.tags.index', compact('tags'));
+    }
+/* PREVIOUS KEY: base64:Gwwr9MOYFr5X3ZU8nBEiSjuVpu8kfO2btyTrr12VtZA= */
     /**
      * Show the form for creating a new resource.
      *

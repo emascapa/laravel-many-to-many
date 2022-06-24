@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\PostRequest;
@@ -25,7 +26,11 @@ class PostController extends Controller
 
         $categories = Category::all();
 
-        return view('admin.posts.index', compact('posts', 'categories'));
+        $tags = Tag::all();
+
+/*         $posts_tags = 
+ */
+        return view('admin.posts.index', compact('posts', 'categories', 'tags'));
     }
 
     /**

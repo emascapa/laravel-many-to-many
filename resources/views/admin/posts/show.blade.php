@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 
 @section('content')
+    @php
+    //dd($posts[1]);
+    dd($posts->tags);
+    @endphp
+
     <div class="container py-4">
 
         <div class="row g-3">
