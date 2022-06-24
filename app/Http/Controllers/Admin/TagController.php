@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests\TagRequest;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
@@ -40,9 +41,20 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TagRequest $request)
     {
         //
+        //dd($request);
+
+        $val_data = $request->validated();
+
+        //dd($val_data->name);
+
+        $val_data['slug'] = Str::slug($request->name, '-');
+
+        Tag::create($val_data);
+
+        return redirect()->route('admin.tags.index');
     }
 
     /**

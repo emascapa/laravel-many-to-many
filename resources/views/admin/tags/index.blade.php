@@ -5,7 +5,7 @@
 
         <h2 class="display-4 mb-3">Tags List</h2>
 
-        <form action="" method="post"> {{-- {{route('admin.categories.store')}} --}}
+        <form action="{{route('admin.tags.store')}}" method="post"> {{--  --}}
             @csrf
             <div class="input-group mb-3">
 

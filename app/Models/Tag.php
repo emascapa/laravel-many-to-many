@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tag extends Model
 {
+
+    protected $fillable = ['name', 'slug'];
+
     //relazione many to many con Post
     public function posts(): BelongsToMany
     {
