@@ -92,7 +92,14 @@ class PostController extends Controller
     {
         //
         //dd($post);
-        return view('admin.posts.show', compact('post'));
+
+        $categories = Category::all();
+
+        $tags = Tag::all();
+
+
+
+        return view('admin.posts.show', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -106,7 +113,11 @@ class PostController extends Controller
         //
         $categories = Category::all();
 
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $tags = Tag::all();
+        
+
+
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -127,7 +138,13 @@ class PostController extends Controller
 
         $data['slug'] = Str::slug($request->title, '-');
 
+ 
+
+        
         $post->update($data);
+
+
+        $post->tags()->sync($request->tag_id);
 
         return redirect()->route('admin.posts.index');
     }
