@@ -35,7 +35,7 @@
                         <td>{{ $tag->name }}</td>
                         <td>{{ $tag->slug }}</td>
                         <td>
-                            <form action="" method="post"> {{-- {{route('admin.categories.destroy', $category->id)}} --}}
+                            <form action="{{route('admin.tags.destroy', $tag->id)}}" method="post"> {{-- {{route('admin.categories.destroy', $category->id)}} --}}
                             
                             @csrf
 

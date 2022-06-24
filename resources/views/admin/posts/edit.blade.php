@@ -2,6 +2,10 @@
 
 @section('content')
 
+{{-- @php
+    dd($post->content);
+@endphp --}}
+
     <div class="container">
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -52,9 +56,29 @@
             </div>
 
             <div class="mb-3">
+                <label for="tag_id">Tags</label>
+
+                <select class="form-control @error('category_id') is-invalid @enderror" multiple
+                    data-mdb-placeholder="Select here tags" multiple name="tag_id[]" id="tag_id">
+
+                    @forelse ($tags as $tag)
+
+                        <option value="{{ $tag->id }}" {{($post->tags->contains($tag->id)) ? 'selected' : ''}}>{{ $tag->name }}</option>
+
+                    @empty
+
+                        <option value="">No tag</option>
+
+                    @endforelse
+
+                </select>
+            </div>
+
+            <div class="mb-3">
                 <label for="content">Content</label>
                 <textarea rows="3" type="text" name="content" id="content"
-                    class="form-control @error('content') is-invalid @enderror" value="{{ $post->content }}">
+                    class="form-control @error('content') is-invalid @enderror" value="">
+                    {{ $post->content }}
                 </textarea>
             </div>
 

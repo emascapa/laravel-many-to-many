@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-    @php
+{{--     @php
     //dd($posts[1]);
     dd($posts->tags);
-    @endphp
+    @endphp --}}
 
     <div class="container py-4">
 
@@ -16,6 +16,14 @@
                 <div class="text-center d-flex flex-column">
                     <h2 class="mb-1">{{ $post->title }}</h2>
                     <span class="mb-3">Slug: {{ $post->slug }}</span>
+                    <p class="mb-3">Category: {{ ($post->category_id) ? $categories[$post->category_id - 1]->name : 'none' }}</p>
+                    <span>Tags: 
+                        @forelse ($post->tags as $tag)
+                            #{{$tag->name}}
+                        @empty
+                            None
+                        @endforelse
+                    </span>
                     <p class="mb-3">{{ $post->content }}</p>
                     <span class="mb-3">Date: {{ date('d-m-Y', strtotime($post->date)) }}</span>
 
