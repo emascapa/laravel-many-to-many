@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Http\Requests\PostRequest;
 
 use Illuminate\Support\Str;
@@ -57,6 +59,8 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         //
+
+        //dd($request->all());
         
         $data = $request->validated();
         
@@ -68,6 +72,25 @@ class PostController extends Controller
 
         $data['slug'] = Str::slug($request->title, '-');
 
+
+        if (array_key_exists('image', $request->all())) {
+
+            $request->validate([
+                'image' => 'nullable|image|max:300'
+            ]);
+
+
+            //dd($request->all());
+
+
+            $img_path = Storage::put('post_images', $request->image);
+
+            //dd(Storage::put('post_images', $request->cover_image));
+            $data['image'] = $img_path;
+
+        };
+
+        //dd($data);
 
         $new_post = Post::create($data);
 

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container py-4">
 
-{{--         @php
+        {{-- @php
             //dd($posts[1]);
             dd($posts[3]->tags);
         @endphp --}}
@@ -41,15 +41,21 @@
                                     <li>{{ $tag->name }} </li>
                                 @empty
 
-                                <li>None</li>
-                                    
+                                    <li>None</li>
                                 @endforelse
-         
+
                             </ul>
                         </td>
                         <td>{{ $post->slug }}</td>
                         <td>{{ $post->content }}</td>
-                        <td><img width="50px" src="{{ $post->image }}" alt="{{ $post->slug }}"></td>
+                        <td>
+                            @if (substr($post->image, 0, 11) == 'post_images')
+                                <img width="50px" src="{{ asset('storage/' . $post->image) }}" alt="{{ $post->slug }}">
+                            @else
+                                <img width="50px" src="{{ $post->image }}" alt="{{ $post->slug }}">
+                            @endif
+
+                        </td>
                         <td>{{ date('d-m-Y', strtotime($post->date)) }}</td>
                         <td>
 

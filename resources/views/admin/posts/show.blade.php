@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-{{--     @php
+    {{-- @php
     //dd($posts[1]);
     dd($posts->tags);
     @endphp --}}
@@ -10,16 +10,22 @@
 
         <div class="row g-3">
             <div class="col-12 col-md-6">
-                <img class="img-fluid rounded rounded-4" src="{{ $post->image }}" alt="{{ $post->slug }}">
+                @if (substr($post->image, 0, 11) == 'post_images')
+                    <img class="img-fluid rounded rounded-4" src="{{ asset('storage/' . $post->image) }}"
+                        alt="{{ $post->slug }}">
+                @else
+                    <img class="img-fluid rounded rounded-4" src="{{ $post->image }}" alt="{{ $post->slug }}">
+                @endif
             </div>
             <div class="col-12 col-md-6 p-3">
                 <div class="text-center d-flex flex-column">
                     <h2 class="mb-1">{{ $post->title }}</h2>
                     <span class="mb-3">Slug: {{ $post->slug }}</span>
-                    <p class="mb-3">Category: {{ ($post->category_id) ? $categories[$post->category_id - 1]->name : 'none' }}</p>
-                    <span>Tags: 
+                    <p class="mb-3">Category:
+                        {{ $post->category_id ? $categories[$post->category_id - 1]->name : 'none' }}</p>
+                    <span>Tags:
                         @forelse ($post->tags as $tag)
-                            #{{$tag->name}}
+                            #{{ $tag->name }}
                         @empty
                             None
                         @endforelse

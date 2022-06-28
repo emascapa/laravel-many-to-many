@@ -27,7 +27,7 @@
         @endif
 
 
-        <form action="{{ route('admin.posts.store') }}" method="post"> {{-- {{route('posts.store')}} --}}
+        <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data"> {{-- {{route('posts.store')}} --}}
 
             <h2 class="text-center">Create a new Post</h2>
 
@@ -88,7 +88,7 @@
 
             <div class="mb-3">
                 <label for="image">Post Image</label>
-                <input type="text" name="image" id="image"
+                <input type="file" name="image" id="image"
                     class="form-control @error('image') is-invalid @enderror" value="{{ old('image') }}">
 
             </div>
