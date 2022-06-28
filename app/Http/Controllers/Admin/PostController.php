@@ -11,8 +11,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 use App\Http\Requests\PostRequest;
-
+use App\Mail\PostCreatedMessage;
 use Illuminate\Support\Str;
+
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -95,6 +97,12 @@ class PostController extends Controller
         $new_post = Post::create($data);
 
         $new_post->tags()->attach($request->tag_id);
+
+
+
+        //mail con messaggio di avvenuto upload
+
+        Mail::to($request->user())->send(new PostCreatedMessage($new_post));
         
 
         return redirect()->route('admin.posts.index'); 
