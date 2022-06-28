@@ -161,6 +161,30 @@ class PostController extends Controller
 
         $data['slug'] = Str::slug($request->title, '-');
 
+        //array_key_exists('image', $request->all()) oppure $request->hasFile('image')
+        if (array_key_exists('image', $request->all())) {
+
+            $request->validate([
+                'image' => 'nullable|image|max:300'
+            ]);
+
+            //elimino immagine precedente
+
+            Storage::delete($post->image);
+
+
+            //dd($request->all());
+
+
+            $img_path = Storage::put('post_images', $request->image);
+
+
+            //dd($img_path);
+            //dd(Storage::put('post_images', $request->cover_image));
+            $data['image'] = $img_path;
+
+        };
+
  
 
         
